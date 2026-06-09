@@ -47,3 +47,27 @@ export async function getLiveMatches() {
 
   return liveMatches;
 }
+
+export async function getMatchInfo(matchId) {
+  const response = await api.get(
+    `/mcenter/v1/${matchId}`
+  );
+  console.log(response.data);
+  const info = response.data.matchInfo;
+
+  return {
+    id: info.matchId,
+
+    team1: info.team1.teamName,
+
+    team2: info.team2.teamName,
+
+    format: info.matchFormat,
+
+    description: info.matchDescription,
+
+    state: info.state,
+
+    venue: info.venue?.ground || "Unknown Venue",
+  };
+}
