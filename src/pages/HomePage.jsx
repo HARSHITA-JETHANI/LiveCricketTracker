@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import MatchCard from "../components/MatchCard";
-import { getAllMatches } from "../services/matchService";
+import { getLiveMatches } from "../services/matchService";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
@@ -12,12 +12,19 @@ const [error, setError] = useState(null);
 
 
   useEffect(() => {
-    setTimeout(() => {
-      const data = getAllMatches();
+    const loadMatches = async () => {
+    try {
+      const data = await getLiveMatches();
 
       setMatches(data);
+    } catch (err) {
+      setError("Failed to load live matches.");
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
+  };
+
+  loadMatches();
   }, []);
 
   if (error) {
