@@ -1,12 +1,10 @@
 import { useParams } from "react-router-dom";
-import matches from "../data/matches";
+import { getMatchById } from "../services/matchService";
 
 function MatchDetailsPage() {
   const { id } = useParams();
 
-  const match = matches.find(
-    (match) => match.id === Number(id)
-  );
+  const match = getMatchById(id);
 
   if (!match) {
   return (
