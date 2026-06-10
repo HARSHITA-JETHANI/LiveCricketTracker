@@ -18,6 +18,7 @@ function HomePage() {
       const data = await getLiveMatches();
 
       setMatches(data);
+      
     } catch (err) {
       setError("Failed to load live matches.");
     } finally {
@@ -26,6 +27,13 @@ function HomePage() {
   };
 
   loadMatches();
+  const intervalId = setInterval(() => {
+    loadMatches();
+  }, 5000);
+
+  return () => {
+    clearInterval(intervalId);
+  }
   }, []);
 
   if (error) {
@@ -38,6 +46,7 @@ function HomePage() {
 
   if (loading) {
     return <LoadingSpinner />;
+    
   }
 
   const filteredMatches = matches.filter((match) => {
