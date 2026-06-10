@@ -52,22 +52,50 @@ export async function getMatchInfo(matchId) {
   const response = await api.get(
     `/mcenter/v1/${matchId}`
   );
-  console.log(response.data);
-  const info = response.data.matchInfo;
+
+  const data = response.data;
 
   return {
-    id: info.matchId,
+    id: data.matchid,
 
-    team1: info.team1.teamName,
+    team1: data.team1.teamname,
 
-    team2: info.team2.teamName,
+    team2: data.team2.teamname,
 
-    format: info.matchFormat,
+    format: data.matchformat,
 
-    description: info.matchDescription,
+    description: data.matchdesc,
 
-    state: info.state,
+    state: data.state,
 
-    venue: info.venue?.ground || "Unknown Venue",
+    status: data.status,
+
+    venue: data.venueinfo?.ground || "Unknown Venue",
+
+    city: data.venueinfo?.city || "",
+
+    series: data.seriesname,
   };
 }
+
+export async function getMatchScorecard(matchId) {
+  const response = await api.get(
+    `/mcenter/v1/${matchId}/scard`
+  );
+
+console.log(response.data.scorecard[0].bowler[0]);
+  return response.data.scorecard.map((innings) => ({
+    innings: innings.batteamname,
+
+    score: `${innings.score}/${innings.wickets}`,
+
+    overs: innings.overs,
+
+    batsmen: innings.batsman,
+
+    bowlers: innings.bowler,
+    
+  })
+);
+}
+
