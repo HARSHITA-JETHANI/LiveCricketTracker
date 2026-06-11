@@ -27,9 +27,9 @@ function HomePage() {
   };
 
   loadMatches();
-  const intervalId = setInterval(() => {
-    loadMatches();
-  }, 5000);
+  // const intervalId = setInterval(() => {
+  //   loadMatches();
+  // }, 30000);
 
   return () => {
     clearInterval(intervalId);
