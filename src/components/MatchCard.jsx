@@ -40,6 +40,5 @@ function MatchCard({ match }) {
     </Link>
   );
 }
-console.log(status);
 
 export default MatchCard;
