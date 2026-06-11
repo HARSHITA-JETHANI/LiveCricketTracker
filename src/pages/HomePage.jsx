@@ -27,13 +27,7 @@ function HomePage() {
   };
 
   loadMatches();
-  // const intervalId = setInterval(() => {
-  //   loadMatches();
-  // }, 30000);
-
-  return () => {
-    clearInterval(intervalId);
-  }
+  
   }, []);
 
   if (error) {
